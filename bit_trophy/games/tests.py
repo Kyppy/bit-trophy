@@ -7,12 +7,12 @@ class RetrieveGameTestcase(TestCase):
 
     def setUp(self):
         """Define the test client and other test variables."""
-        self.videogame_name = "Pokemon"
-        self.videogame = Bucketlist(name=self.videogame_name)
+        self.videogame_title = "Pokemon"
+        self.videogame = VideoGame(title=self.videogame_title)
 
     def test_model_can_create_a_bucketlist(self):
         """Test that the videogame model can create a videogame instance."""
-        old_count = Videogame.objects.count()
+        old_count = VideoGame.objects.count()
         self.videogame.save()
         new_count = VideoGame.objects.count()
         self.assertNotEqual(old_count, new_count)
