@@ -43,4 +43,3 @@ class RetrieveGameTestcase(TestCase):
         data = response.json()['games']
         total_entries = len(data)
         self.assertEqual(total_entries, 3)
-        
