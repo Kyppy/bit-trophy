@@ -4,7 +4,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 class VideoGame(models.Model):
     """This class represents the videogame model"""
-    title = models.CharField(max_length=100, blank=False)
+    title = models.CharField(max_length=100)
     platform = models.CharField(max_length=15, default='Add PC or Console')
     genre = models.CharField(max_length=25, default='Add genre')
     user_rating = models.IntegerField(default=0, validators=[
