@@ -15,5 +15,6 @@ install:
 before_script: 
   - mysql -e 'create database test;' -u root
 
-script: 
+script:
+  - cd bit_trophy
   - python manage.py test
