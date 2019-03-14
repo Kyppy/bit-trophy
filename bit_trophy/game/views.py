@@ -8,7 +8,7 @@ from .serializers import GameSerializer
 
 
 class GamesView(APIView):
-    """Returns a list of all 'games' from the VideoGame model"""
+    """Returns a list of all game posts from all users."""
     def get(self, request):
         games = VideoGame.objects.all()
         serializer = GameSerializer(games, many=True)
