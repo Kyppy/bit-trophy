@@ -58,7 +58,8 @@ class RetrieveGameTestcase(TestCase):
     def test_view_can_post_game_entry(self):
         """Test to post game entry to database."""
         old_count = VideoGame.objects.count()
-        response = self.client.post('/api/games/',self.json_post, format='json')
+        response = self.client.post('/api/games/', self.json_post,
+                                    format='json')
         self.assertEqual(response.status_code, 200)
         new_count = VideoGame.objects.count()
         self.assertEqual(new_count, 1)
