@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import VideoGame
+from .models import User
+
 from .serializers import GameSerializer
 
 
@@ -20,5 +22,4 @@ class GamesView(APIView):
         serializer = GameSerializer(data=game)
         if serializer.is_valid(raise_exception=True):
             save_game = serializer.save()
-        return Response({"success": "Your '{}' post was successful"
-                        .format(save_game.title)})
+        return Response(serializer.data)

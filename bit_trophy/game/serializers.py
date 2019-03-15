@@ -8,7 +8,7 @@ class GameSerializer(serializers.Serializer):
     genre = serializers.CharField()
     user_rating = serializers.IntegerField()
     is_playing = serializers.BooleanField()
-    user = serializers.IntegerField()
+    user_id = serializers.IntegerField()
 
     def create(self, validated_data):
         return VideoGame.objects.create(**validated_data)
