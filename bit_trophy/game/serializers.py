@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from .models import VideoGame
 
 
 class GameSerializer(serializers.Serializer):
@@ -7,3 +8,7 @@ class GameSerializer(serializers.Serializer):
     genre = serializers.CharField()
     user_rating = serializers.IntegerField()
     is_playing = serializers.BooleanField()
+    user_id = serializers.IntegerField()
+
+    def create(self, validated_data):
+        return VideoGame.objects.create(**validated_data)

@@ -1,7 +1,8 @@
 from django.test import TestCase
 from django.test import Client
-
+from rest_framework.test import APIClient
 from .models import VideoGame
+from .models import User
 
 
 class RetrieveGameTestcase(TestCase):
@@ -9,19 +10,29 @@ class RetrieveGameTestcase(TestCase):
 
     def setUp(self):
         """Define the test client and other test variables."""
-        self.videogame_title = "Pokemon"
-        self.videogame = VideoGame(title=self.videogame_title)
+        self.client = APIClient()
+        self.user_entry = User(username="Bob", email="mail@demo.com")
         self.game_entry_one = VideoGame(title="Doom", platform="PS3",
-                                        genre="Action")
+                                        genre="Action", user_id=1)
         self.game_entry_two = VideoGame(title="Overlord", platform="PS3",
-                                        genre="RTS")
+                                        genre="RTS", user_id=1)
         self.game_entry_three = VideoGame(title="Skyrim", platform="PS3",
-                                          genre="RPG")
+                                          genre="RPG", user_id=1)
+        self.json_post = {"game":
+                          {
+                                "title": "Skyrim",
+                                "platform": "PS3",
+                                "genre": "RPG",
+                                "user_rating": 100,
+                                "is_playing": False,
+                                "user_id": 1
+                          }
+                          }
 
     def test_can_save_a_game_entry(self):
         """Test to save a single game entry to the database."""
         old_count = VideoGame.objects.count()
-        self.videogame.save()
+        self.game_entry_one.save()
         new_count = VideoGame.objects.count()
         self.assertNotEqual(old_count, new_count)
 
@@ -43,3 +54,13 @@ class RetrieveGameTestcase(TestCase):
         data = response.json()['games']
         total_entries = len(data)
         self.assertEqual(total_entries, 3)
+    
+    def test_view_can_post_game_entry(self):
+        """Test to post game entry to database."""
+        old_count = VideoGame.objects.count()
+        response = self.client.post('/api/games/', self.json_post,
+                                    format='json')
+        self.assertEqual(response.status_code, 200)
+        new_count = VideoGame.objects.count()
+        self.assertEqual(new_count, 1)
+    
