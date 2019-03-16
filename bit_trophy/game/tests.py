@@ -20,16 +20,16 @@ class RetrieveGameTestcase(TestCase):
                                         genre="RTS", user_id=1)
         self.game_entry_three = VideoGame(title="Skyrim", platform="PS3",
                                           genre="RPG", user_id=1)
-        self.json_post = {"game":
-                          {
+        self.new_post = {"game":
+                         {
                                 "title": "Skyrim",
                                 "platform": "PS3",
                                 "genre": "RPG",
                                 "user_rating": 100,
                                 "is_playing": False,
                                 "user_id": 1
-                          }
-                          }
+                         }
+                         }
 
     def test_can_save_a_game_entry(self):
         """Test to save a single game entry to the database."""
@@ -60,7 +60,7 @@ class RetrieveGameTestcase(TestCase):
     def test_view_can_post_game_entry(self):
         """Test to post game entry to database."""
         old_count = VideoGame.objects.count()
-        response = self.client.post('/api/games/', self.json_post,
+        response = self.client.post('/api/games/', self.new_post,
                                     format='json')
         self.assertEqual(response.status_code, 200)
         new_count = VideoGame.objects.count()
@@ -71,7 +71,7 @@ class RetrieveGameTestcase(TestCase):
         self.game_entry_one.save()
         old_title = VideoGame.objects.get(pk=1).title
         old_genre = VideoGame.objects.get(pk=1).genre
-        response = self.client.put('/api/games/1', self.json_post,
+        response = self.client.put('/api/games/1', self.new_post,
                                    format='json')
         self.assertEqual(response.status_code, 200)
         new_title = VideoGame.objects.get(pk=1).title
