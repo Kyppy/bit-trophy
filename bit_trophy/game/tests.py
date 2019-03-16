@@ -1,6 +1,8 @@
 from django.test import TestCase
 from django.test import Client
+
 from rest_framework.test import APIClient
+
 from .models import VideoGame
 from .models import User
 
@@ -63,4 +65,17 @@ class RetrieveGameTestcase(TestCase):
         self.assertEqual(response.status_code, 200)
         new_count = VideoGame.objects.count()
         self.assertEqual(new_count, 1)
+    
+    def test_view_can_edit_game_entry(self):
+        """Test to update two attributes of a game entry."""
+        self.game_entry_one.save()
+        old_title = VideoGame.objects.get(pk=1).title
+        old_genre = VideoGame.objects.get(pk=1).genre
+        response = self.client.put('/api/games/1', self.json_post,
+                                   format='json')
+        self.assertEqual(response.status_code, 200)
+        new_title = VideoGame.objects.get(pk=1).title
+        new_genre = VideoGame.objects.get(pk=1).genre
+        self.assertEqual(new_title, "Skyrim")
+        self.assertEqual(new_genre, "RPG")
     
