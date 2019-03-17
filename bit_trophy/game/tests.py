@@ -56,7 +56,7 @@ class RetrieveGameTestcase(TestCase):
         data = response.json()['games']
         total_entries = len(data)
         self.assertEqual(total_entries, 3)
-    
+
     def test_view_can_post_game_entry(self):
         """Test to post game entry to database."""
         old_count = VideoGame.objects.count()
@@ -65,7 +65,7 @@ class RetrieveGameTestcase(TestCase):
         self.assertEqual(response.status_code, 200)
         new_count = VideoGame.objects.count()
         self.assertEqual(new_count, 1)
-    
+
     def test_view_can_edit_game_entry(self):
         """Test to update two attributes of a game entry."""
         self.game_entry_one.save()
@@ -78,4 +78,15 @@ class RetrieveGameTestcase(TestCase):
         new_genre = VideoGame.objects.get(pk=1).genre
         self.assertEqual(new_title, "Skyrim")
         self.assertEqual(new_genre, "RPG")
+
+    def test_view_can_delete_game_entry(self):
+        """Test to delete a game entry."""
+        self.game_entry_one.save()
+        self.game_entry_two.save()
+        response = self.client.delete('/api/games/1', format='json')
+        self.assertEqual(response.status_code, 204)
+        count = VideoGame.objects.count()
+        self.assertEqual(count, 1)
+        entry_id = VideoGame.objects.get(pk=2).pk
+        self.assertEqual(entry_id, 2)
     
