@@ -9,6 +9,9 @@ pep8 = "*"
 [packages]
 django = "*"
 djangorestframework = "*"
+django-nose = "*"
+nose = "*"
+coverage = "*"
 
 [requires]
 python_version = "3.7"
