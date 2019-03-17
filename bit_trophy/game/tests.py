@@ -79,3 +79,13 @@ class RetrieveGameTestcase(TestCase):
         self.assertEqual(new_title, "Skyrim")
         self.assertEqual(new_genre, "RPG")
     
+    def test_view_can_delete_game_entry(self):
+        """Test to delete a game entry."""
+        self.game_entry_one.save()
+        self.game_entry_two.save()
+        response = self.client.delete('/api/games/1', format='json')
+        self.assertEqual(response.status_code, 200)
+        count = VideoGame.objects.count()
+        self.assertEqual(count, 1)
+        entry_pk = VideoGame.objects.get(pk=2)
+    
