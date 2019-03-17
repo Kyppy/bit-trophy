@@ -36,3 +36,10 @@ class GamesView(APIView):
             game_saved = serializer.save()
         return Response({"success": "Post for '{}' updated successfully"
                         .format(game_saved.title)})
+
+    """Delete a single game entry"""
+    def delete(self, request, pk):
+        game = get_object_or_404(VideoGame.objects.all(), pk=pk)
+        game.delete()
+        return Response({"message": "Game entry with id `{}` has been deleted."
+                        .format(pk)}, status=204)
