@@ -14,7 +14,7 @@ import os
 import environ
 
 env = environ.Env(
-    DEBUG =(bool,False)
+    DEBUG=(bool, False)
 )
 environ.Env.read_env()
 
@@ -95,7 +95,6 @@ WSGI_APPLICATION = 'bit_trophy.wsgi.application'
 DATABASES = {
     'default': env.db(),
     }
-
 
 
 # Password validation
