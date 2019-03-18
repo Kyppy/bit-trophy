@@ -1,0 +1,1 @@
+web: gunicorn bit_trophy.wsgi --log-file -

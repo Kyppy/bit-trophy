@@ -13,6 +13,8 @@ django-nose = "*"
 nose = "*"
 coverage = "*"
 psycopg2 = "*"
+gunicorn = "*"
+whitenoise = "*"
 
 [requires]
 python_version = "3.7"
