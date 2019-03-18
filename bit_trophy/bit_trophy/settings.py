@@ -25,7 +25,7 @@ SECRET_KEY = 'b2_lzd=!*uqgo_bq2y_(cyt63!ijxcvm#nb+^s5)43(u0(1=b('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['bit-trophy.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
