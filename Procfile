@@ -1,1 +1,1 @@
-web: gunicorn bit_trophy.wsgi --log-file -
+web: gunicorn --pythonpath bit_trophy bit_trophy.wsgi 
