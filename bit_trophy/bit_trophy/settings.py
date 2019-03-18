@@ -88,9 +88,9 @@ WSGI_APPLICATION = 'bit_trophy.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('BT_DB_NAME'),
-        'USER': os.environ.get('BT_DB_USER'),
-        'PASSWORD': os.environ.get('BT_DB_PASS'),
+        'NAME': os.environ.get('BT_DB_NAME', ''),
+        'USER': os.environ.get('BT_DB_USER', ''),
+        'PASSWORD': os.environ.get('BT_DB_PASS', ''),
         'HOST': 'localhost',
         'PORT': '5432',
         'TEST': {
