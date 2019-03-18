@@ -11,6 +11,13 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import environ
+
+env = environ.Env(
+    DEBUG =(bool,False)
+)
+environ.Env.read_env()
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -44,7 +51,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -87,18 +93,9 @@ WSGI_APPLICATION = 'bit_trophy.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('BT_DB_NAME', ''),
-        'USER': os.environ.get('BT_DB_USER', ''),
-        'PASSWORD': os.environ.get('BT_DB_PASS', ''),
-        'HOST': 'localhost',
-        'PORT': '5432',
-        'TEST': {
-            'NAME': 'bit_trophy'
-        },
+    'default': env.db(),
     }
-}
+
 
 
 # Password validation
@@ -146,4 +143,4 @@ STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'assests'),
 )
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFileStorage'
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFileStorage'
