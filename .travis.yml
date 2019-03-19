@@ -21,3 +21,6 @@ before_script:
 script:
   - cd bit_trophy
   - python manage.py test
+
+after success:
+  - coveralls
