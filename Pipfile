@@ -17,6 +17,7 @@ gunicorn = "*"
 whitenoise = "*"
 django-environ = "*"
 coveralls = "*"
+django-rest-swagger = "*"
 
 [requires]
 python_version = "3.7"

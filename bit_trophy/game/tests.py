@@ -79,7 +79,7 @@ class RetrieveGameTestcase(TestCase):
         old_title = VideoGame.objects.all().first().title
         old_genre = VideoGame.objects.all().first().genre
         pk = VideoGame.objects.all().first().pk
-        response = self.client.put('/api/v1/games/{}'.format(pk),
+        response = self.client.put('/api/v1/game/{}/'.format(pk),
                                    self.new_post, format='json')
         self.assertEqual(response.status_code, 200)
         new_title = VideoGame.objects.all().first().title
@@ -93,7 +93,7 @@ class RetrieveGameTestcase(TestCase):
         self.game_entry_two.save()
         pk_1 = VideoGame.objects.get(title="Doom").pk
         pk_2 = VideoGame.objects.get(title="Overlord").pk
-        response = self.client.delete('/api/v1/games/{}'
+        response = self.client.delete('/api/v1/game/{}/'
                                       .format(pk_1), format='json')
         self.assertEqual(response.status_code, 204)
         count = VideoGame.objects.count()
@@ -105,7 +105,7 @@ class RetrieveGameTestcase(TestCase):
         """Test to retrieve a single game entry stored in the database."""
         self.game_entry_one.save()
         pk_1 = VideoGame.objects.get(title="Doom").pk
-        response = self.client.get('/api/v1/game/{}'.format(pk_1),
+        response = self.client.get('/api/v1/game/{}/'.format(pk_1),
                                    format='json')
         self.assertEqual(response.status_code, 200)
         data = response.json()['game']
