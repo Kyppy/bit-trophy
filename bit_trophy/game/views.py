@@ -49,4 +49,4 @@ class GameView(APIView):
     def get(self, request, pk):
         game = get_object_or_404(VideoGame.objects.all(), pk=pk)
         serializer = GameSerializer(game, many=False)
-        return Response({"game": serializer.data}, status=200)
+        return Response({"game": [serializer.data]}, status=200)

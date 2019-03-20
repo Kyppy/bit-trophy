@@ -100,3 +100,14 @@ class RetrieveGameTestcase(TestCase):
         self.assertEqual(count, 1)
         entry_id = VideoGame.objects.get(title="Overlord").pk
         self.assertEqual(entry_id, pk_2)
+    
+    def test_view_can_retrieve_single_game_entrie(self):
+        """Test to retrieve a single game entry stored in the database."""
+        self.game_entry_one.save()
+        pk_1 = VideoGame.objects.get(title="Doom").pk
+        response = self.client.get('/api/v1/game/{}'.format(pk_1),
+                                   format='json')
+        self.assertEqual(response.status_code, 200)
+        data = response.json()['game']
+        total_entries = len(data)
+        self.assertEqual(total_entries, 1)
