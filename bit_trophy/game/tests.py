@@ -16,19 +16,21 @@ class RetrieveGameTestcase(TestCase):
         self.user_entry = User(username="Bob", email="mail@demo.com")
         self.user_entry.save()
         self.game_entry_one = VideoGame(title="Doom", platform="PS3",
-                                        genre="Action", user_id=User.objects
+                                        genre="First-person shooter",
+                                        user_id=User.objects
                                         .get(username="Bob").pk)
         self.game_entry_two = VideoGame(title="Overlord", platform="PS3",
-                                        genre="RTS", user_id=User.objects
+                                        genre="Strategy", user_id=User.objects
                                         .get(username="Bob").pk)
         self.game_entry_three = VideoGame(title="Skyrim", platform="PS3",
-                                          genre="RPG", user_id=User.objects
+                                          genre="Role-playing game",
+                                          user_id=User.objects
                                           .get(username="Bob").pk)
         self.new_post = {"game":
                          {
                                 "title": "Skyrim",
                                 "platform": "PS3",
-                                "genre": "RPG",
+                                "genre": "Role-playing game",
                                 "user_rating": 100,
                                 "is_playing": False,
                                 "user_id": User.objects.get(username="Bob").pk
@@ -44,7 +46,7 @@ class RetrieveGameTestcase(TestCase):
 
     def test_view_can_retrieve_null_entry(self):
         """Test to retrieve an entry from an empty database."""
-        response = Client().get('/api/games/')
+        response = Client().get('/api/v1/games/')
         self.assertEqual(response.status_code, 200)
         data = response.json()['games']
         total_entries = len(data)
@@ -55,7 +57,7 @@ class RetrieveGameTestcase(TestCase):
         self.game_entry_one.save()
         self.game_entry_two.save()
         self.game_entry_three.save()
-        response = Client().get('/api/games/')
+        response = Client().get('/api/v1/games/')
         self.assertEqual(response.status_code, 200)
         data = response.json()['games']
         total_entries = len(data)
@@ -65,7 +67,7 @@ class RetrieveGameTestcase(TestCase):
         """Test to post game entry to database."""
         self.user_entry.save()
         old_count = VideoGame.objects.count()
-        response = self.client.post('/api/games/', self.new_post,
+        response = self.client.post('/api/v1/games/', self.new_post,
                                     format='json')
         self.assertEqual(response.status_code, 200)
         new_count = VideoGame.objects.count()
@@ -77,13 +79,13 @@ class RetrieveGameTestcase(TestCase):
         old_title = VideoGame.objects.all().first().title
         old_genre = VideoGame.objects.all().first().genre
         pk = VideoGame.objects.all().first().pk
-        response = self.client.put('/api/games/{}'.format(pk), self.new_post,
+        response = self.client.put('/api/v1/games/{}'.format(pk), self.new_post,
                                    format='json')
         self.assertEqual(response.status_code, 200)
         new_title = VideoGame.objects.all().first().title
         new_genre = VideoGame.objects.all().first().genre
         self.assertEqual(new_title, "Skyrim")
-        self.assertEqual(new_genre, "RPG")
+        self.assertEqual(new_genre, "Role-playing game")
 
     def test_view_can_delete_game_entry(self):
         """Test to delete a game entry."""
@@ -91,7 +93,7 @@ class RetrieveGameTestcase(TestCase):
         self.game_entry_two.save()
         pk_1 = VideoGame.objects.get(title="Doom").pk
         pk_2 = VideoGame.objects.get(title="Overlord").pk
-        response = self.client.delete('/api/games/{}'.format(pk_1),
+        response = self.client.delete('/api/v1/games/{}'.format(pk_1),
                                       format='json')
         self.assertEqual(response.status_code, 204)
         count = VideoGame.objects.count()
