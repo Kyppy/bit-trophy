@@ -11,22 +11,30 @@ from .serializers import GameSerializer
 
 
 class GamesView(APIView):
-    """Returns a list of all game posts from all users."""
     def get(self, request):
+        """Returns a list of all game posts from all users."""
         games = VideoGame.objects.all()
         serializer = GameSerializer(games, many=True)
         return Response({"games": serializer.data})
 
-    """Creates a game post using data from the request"""
     def post(self, request):
+        """Creates a game post using data from the request"""
         game = request.data.get('game')
         serializer = GameSerializer(data=game)
         if serializer.is_valid(raise_exception=True):
             save_game = serializer.save()
         return Response(serializer.data)
 
-    """Updates data of an existing post"""
+    
+class GameView(APIView):
+    def get(self, request, pk):
+        """Returns a single game entry"""
+        game = get_object_or_404(VideoGame.objects.all(), pk=pk)
+        serializer = GameSerializer(game, many=False)
+        return Response({"game": [serializer.data]}, status=200)
+    
     def put(self, request, pk):
+        """Updates data of an existing post"""
         saved_game = get_object_or_404(VideoGame.objects.all(), pk=pk)
         data = request.data.get('game')
         serializer = GameSerializer(instance=saved_game, data=data,
@@ -36,17 +44,9 @@ class GamesView(APIView):
         return Response({"success": "Post for '{}' updated successfully"
                         .format(game_saved.title)})
 
-    """Delete a single game entry"""
     def delete(self, request, pk):
+        """Delete a single game entry"""
         game = get_object_or_404(VideoGame.objects.all(), pk=pk)
         game.delete()
         return Response({"message": "Game entry with id `{}` has been deleted."
                         .format(pk)}, status=204)
-
-
-class GameView(APIView):
-    """Returns a single game entry"""
-    def get(self, request, pk):
-        game = get_object_or_404(VideoGame.objects.all(), pk=pk)
-        serializer = GameSerializer(game, many=False)
-        return Response({"game": [serializer.data]}, status=200)
