@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+from .choice_list.choices import Choices
+
 
 class User(models.Model):
     """This class represents the model for users"""
@@ -13,9 +15,14 @@ class User(models.Model):
 
 class VideoGame(models.Model):
     """This class represents the videogame model"""
-    title = models.CharField(max_length=100)
-    platform = models.CharField(max_length=15, default='Add PC or Console')
-    genre = models.CharField(max_length=25, default='Add genre')
+    title = models.CharField(max_length=100, help_text='Enter the name of the '
+                             'game.')
+    platform = models.CharField(max_length=30, choices=Choices()
+                                .platform_choices,
+                                help_text='Select the console that you play '
+                                'the game on.')
+    genre = models.CharField(max_length=30, choices=Choices().genre_choices,
+                             help_text='Select the game genre.')
     user_rating = models.IntegerField(default=0, validators=[
                                      MaxValueValidator(10),
                                      MinValueValidator(0)])

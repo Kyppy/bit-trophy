@@ -16,19 +16,21 @@ class RetrieveGameTestcase(TestCase):
         self.user_entry = User(username="Bob", email="mail@demo.com")
         self.user_entry.save()
         self.game_entry_one = VideoGame(title="Doom", platform="PS3",
-                                        genre="Action", user_id=User.objects
+                                        genre="First-person shooter",
+                                        user_id=User.objects
                                         .get(username="Bob").pk)
         self.game_entry_two = VideoGame(title="Overlord", platform="PS3",
-                                        genre="RTS", user_id=User.objects
+                                        genre="Strategy", user_id=User.objects
                                         .get(username="Bob").pk)
         self.game_entry_three = VideoGame(title="Skyrim", platform="PS3",
-                                          genre="RPG", user_id=User.objects
+                                          genre="Role-playing game",
+                                          user_id=User.objects
                                           .get(username="Bob").pk)
         self.new_post = {"game":
                          {
                                 "title": "Skyrim",
                                 "platform": "PS3",
-                                "genre": "RPG",
+                                "genre": "Role-playing game",
                                 "user_rating": 100,
                                 "is_playing": False,
                                 "user_id": User.objects.get(username="Bob").pk
@@ -83,7 +85,7 @@ class RetrieveGameTestcase(TestCase):
         new_title = VideoGame.objects.all().first().title
         new_genre = VideoGame.objects.all().first().genre
         self.assertEqual(new_title, "Skyrim")
-        self.assertEqual(new_genre, "RPG")
+        self.assertEqual(new_genre, "Role-playing game")
 
     def test_view_can_delete_game_entry(self):
         """Test to delete a game entry."""

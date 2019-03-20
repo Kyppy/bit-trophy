@@ -27,7 +27,6 @@ class GamesView(APIView):
 
     """Updates data of an existing post"""
     def put(self, request, pk):
-        # print(VideoGame.objects.get(title="Halo").pk)
         saved_game = get_object_or_404(VideoGame.objects.all(), pk=pk)
         data = request.data.get('game')
         serializer = GameSerializer(instance=saved_game, data=data,
