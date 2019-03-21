@@ -87,13 +87,15 @@ To run the unit tests change into the root directory and run the following from 
 2) python manage.py test
 ```
 
-If you want to test the API endpoints yourself, you can use an API development environment such as Postman to access each endpoint URL. Please refer to the API endpoint reference section below:
+If you want to test the API endpoints yourself, you can use the packaged Swagger UI documentation. To access it do the following from the root directory:
 ```
-https://www.getpostman.com/apps
+1) Change directory into 'bit_trophy'
+2) run: python manage.py runserver
+3) Using a browser access http://127.0.0.1:8000/api/v1/swagger-docs/
 ```
 ## HTTP Verbs
-| HTTP METHOD | POST (CREATE)   | GET (READ)                    | PUT (UPDATE)                                                       | DELETE                                                            |
-|-------------|-----------------|-------------------------------|--------------------------------------------------------------------|-------------------------------------------------------------------|
-| games/      | Create new game | List all games from all users. | Error                                                              | Error                                                             |
-| games/1     | Error           | Error                         | If game with primary key 1 exists, update. If not, error.  | If game with primary key 1 exists, delete. If not, error. |
-|             |                 |                               |                                                                    |                                                                   |
+| HTTP METHOD      | POST (CREATE)   | GET (READ)                             | PUT (UPDATE)                                                       | DELETE                                                            |
+|------------------|-----------------|----------------------------------------|--------------------------------------------------------------------|-------------------------------------------------------------------|
+| v1/games/        | Create new game | Returns all entries from the database. | Error                                                              | Error                                                             |
+| v1/game/<int:pk> | Error           | Returns a single game entry.           | If game with specified primary key exists, update. If not, error.  | If game with specified primary key exists, delete. If not, error. |
+|                  |                 |                                        |                                                                    |                                                                   |
