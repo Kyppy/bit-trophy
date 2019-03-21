@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/Kyppy/bit-trophy.svg?branch=develop)](https://travis-ci.org/Kyppy/bit-trophy) [![Coverage Status](https://coveralls.io/repos/github/Kyppy/bit-trophy/badge.svg?branch=develop)](https://coveralls.io/github/Kyppy/bit-trophy?branch=develop) <a href="https://codeclimate.com/github/Kyppy/bit-trophy/maintainability"><img src="https://api.codeclimate.com/v1/badges/ebc0c1d83631b3a7a78b/maintainability" /></a>
 
-# Bit-trophy
+# Bit Trophy
 A digital showcase for users to post their personal video game collection.
 
 This project contains resources for the Bit Trophy API. These resources will enable users to create, retrieve, update and delete posts. This API uses a Django DRF framework and a postgreSQL database.
