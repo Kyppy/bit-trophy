@@ -23,16 +23,17 @@ class GamesView(APIView):
         serializer = GameSerializer(data=game)
         if serializer.is_valid(raise_exception=True):
             save_game = serializer.save()
-        return Response(serializer.data)
+            return Response(serializer.data)
+        return serializer.errors
 
-    
+
 class GameView(APIView):
     def get(self, request, pk):
         """Returns a single game entry"""
         game = get_object_or_404(VideoGame.objects.all(), pk=pk)
         serializer = GameSerializer(game, many=False)
         return Response({"game": [serializer.data]}, status=200)
-    
+
     def put(self, request, pk):
         """Updates data of an existing post"""
         saved_game = get_object_or_404(VideoGame.objects.all(), pk=pk)
@@ -41,8 +42,9 @@ class GameView(APIView):
                                     partial=True)
         if serializer.is_valid(raise_exception=True):
             game_saved = serializer.save()
-        return Response({"success": "Post for '{}' updated successfully"
-                        .format(game_saved.title)})
+            return Response({"success": "Post for '{}' updated successfully"
+                            .format(game_saved.title)})
+        return serializer.errors
 
     def delete(self, request, pk):
         """Delete a single game entry"""
