@@ -14,6 +14,7 @@ class GameSerializer(serializers.Serializer):
                                      MaxValueValidator(10),
                                      MinValueValidator(0)])
     is_playing = serializers.BooleanField(default=False)
+    id = serializers.IntegerField(read_only=True)
     user_id = serializers.IntegerField()
 
     def create(self, validated_data):
