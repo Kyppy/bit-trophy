@@ -17,13 +17,15 @@ class RetrieveGameTestcase(TestCase):
         self.user_entry.save()
         self.game_entry_one = VideoGame(title="Doom", platform="PS3",
                                         genre="First-person shooter",
+                                        user_rating=10,
                                         user_id=User.objects
                                         .get(username="Bob").pk)
         self.game_entry_two = VideoGame(title="Overlord", platform="PS3",
-                                        genre="Strategy", user_id=User.objects
-                                        .get(username="Bob").pk)
+                                        genre="Strategy", user_rating=5, 
+                                        user_id=User.objects.get(username="Bob").pk)
         self.game_entry_three = VideoGame(title="Skyrim", platform="PS3",
                                           genre="Role-playing game",
+                                          user_rating=9,
                                           user_id=User.objects
                                           .get(username="Bob").pk)
         self.new_post = {"game":
@@ -31,7 +33,7 @@ class RetrieveGameTestcase(TestCase):
                                 "title": "Skyrim",
                                 "platform": "PS3",
                                 "genre": "Role-playing game",
-                                "user_rating": 100,
+                                "user_rating": 10,
                                 "is_playing": False,
                                 "user_id": User.objects.get(username="Bob").pk
                          }
