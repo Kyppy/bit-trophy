@@ -15,7 +15,6 @@ class GameSerializer(serializers.Serializer):
                                      MinValueValidator(0)])
     is_playing = serializers.BooleanField(default=False)
     id = serializers.IntegerField(read_only=True)
-    user_id = serializers.IntegerField()
 
     def create(self, validated_data):
         return VideoGame.objects.create(**validated_data)
@@ -28,6 +27,5 @@ class GameSerializer(serializers.Serializer):
                                                   instance.user_rating)
         instance.is_playing = validated_data.get('is_playing',
                                                  instance.is_playing)
-        instance.user_id = validated_data.get('user_id', instance.user_id)
         instance.save()
         return instance
