@@ -27,8 +27,9 @@ class VideoGame(models.Model):
                                      MaxValueValidator(10),
                                      MinValueValidator(0)])
     is_playing = models.BooleanField(default=False)
-    user = models.ForeignKey('User', related_name='user',
-                             on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ["id"]
 
     def __str__(self):
         return "{}".format(self.title)
