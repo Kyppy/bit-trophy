@@ -1,0 +1,33 @@
+{
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "env": {
+    "DISABLE_COLLECTSTATIC": {
+      "required": true
+    },
+    "NAME": {
+      "required": true
+    },
+    "PASSWORD": {
+      "required": true
+    },
+    "USER": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "name": "bit-trophy",
+  "scripts": {
+  },
+  "stack": "heroku-18"
+}
